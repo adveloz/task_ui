@@ -1,25 +1,51 @@
-import logo from './logo.svg';
 import './App.css';
+import AppProvider from "./componet/providers/appProviders";
+import Homepage from './componet/homepage';
+import Sidebar from './componet/sidebar/sidebar';
+import AddItem from './componet/sidebar/addItem/addItem';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+    function App() {
+      const AppBoard = ({ children }) => {
+        return (
+            <div className="App">
+              <div className="container">
+                  <div className="boxleft">
+                    <Sidebar />
+                  </div>
+                  <div className="boxrigth">
+                    {children}
+                  </div>
+              </div>
+            </div>
+        );
+      };
+    
+      return (
+        <Router>
+          <AppProvider>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <AppBoard>
+                    <Homepage />
+                  </AppBoard>
+                }
+              />
+              <Route
+                path="/addItem"
+                element={
+                  <AppBoard>
+                    <AddItem/>
+                  </AppBoard>
+                }
+              />
+            </Routes>
+            </AppProvider>
+        </Router>
+      );
+    }
 
 export default App;
